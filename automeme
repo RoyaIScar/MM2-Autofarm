@@ -1,0 +1,67 @@
+-- mm2 autofarm made by the one and only braindeadman theluagod scartesu
+
+game:GetService("StarterGui"):SetCore("SendNotification", {
+	Title = "MM2 Automeme By Scartesu";
+	Text = "autofarm started, go grab a coffee or water your plants idk ";
+})
+
+game.Players.LocalPlayer.Character:BreakJoints()
+
+function automeme()
+
+local counter = game.Players.LocalPlayer.PlayerGui.MainGUI.Game.CashBag.CoinIcon.Coins
+local me = game.Players.LocalPlayer.Character
+local rp = me.HumanoidRootPart
+local called = false
+local cooldown = 2.1
+local endnow = false
+if me ~= nil then
+me.LowerTorso.Root:Destroy()
+end
+coroutine.resume(coroutine.create(function()
+while wait(cooldown) do
+    for _,v in pairs(game.workspace:GetDescendants()) do
+        if v:FindFirstChild("CoinContainer") then
+            called = true
+            end
+        end
+        if called == true then
+    
+for _,v in pairs(game.workspace:GetDescendants()) do
+    if v.Name == "Coin_Server" then
+        rp.CFrame = v.CFrame + Vector3.new(0,3.5,0.5)
+   end
+end
+if counter.Text == "40" then
+me:BreakJoints()
+         end
+        end
+
+ 
+ for _,v in pairs(game.workspace:GetDescendants()) do
+     if not v:FindFirstChild("CoinContainer") then
+        called = false
+        else
+        called = true -- assurance that it runs when round starts
+    end
+end
+
+
+if endnow == true then -- stopping dead loops
+    break
+end
+
+
+end
+me.Humanoid.Died:connect(function()
+    endnow = true
+end)
+
+end))
+end
+
+
+game.Players.LocalPlayer.CharacterAdded:connect(function()
+    wait(5)
+    automeme()
+    end)
