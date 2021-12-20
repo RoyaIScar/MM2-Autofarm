@@ -1,4 +1,10 @@
--- mm2 autofarm made by the one and only braindeadman theluagod scartesu
+-- mm2 autofarm by scartesu
+-- updated to stop most fps drops
+-- probably wont update again cus of how much i hate this or i will just remake in the future idk screw this
+
+
+repeat wait() until game:IsLoaded()
+
 
 game:GetService("StarterGui"):SetCore("SendNotification", {
 	Title = "MM2 Automeme By Scartesu";
@@ -29,7 +35,7 @@ while wait(cooldown) do
     
 for _,v in pairs(game.workspace:GetDescendants()) do
     if v.Name == "Coin_Server" then
-        rp.CFrame = v.CFrame + Vector3.new(0,3.5,0.4)
+        rp.CFrame = v.CFrame + Vector3.new(0,3.5,0.5)
    end
 end
 if counter.Text == "40" then
@@ -51,8 +57,22 @@ if endnow == true then -- stopping dead loops
     break
 end
 
+for _,v in pairs(game.workspace:GetDescendants()) do
+    if v:IsA("Model") and v:FindFirstChild("Map") then -- identify map ye
+        v.ChildRemoved:Connect(function(coin)
+            
+            if coin.Name == "CoinContainer" then
+                endnow = true
+                
+                end
+            end)
+        end
+    end
 
 end
+
+
+
 me.Humanoid.Died:connect(function()
     endnow = true
 end)
@@ -64,4 +84,7 @@ end
 game.Players.LocalPlayer.CharacterAdded:connect(function()
     wait(5)
     automeme()
-    end)
+end)
+for i,v in pairs(getconnections(game.Players.LocalPlayer.Idled)) do
+v:Disable()
+end
